@@ -1,68 +1,76 @@
-# Design Document: Patient Queue Management System
+# Patient Queue Management System
 
-## Overview
+A healthcare workflow automation tool that helps patients book appointments online, get smart departure times based on their location and traffic, and navigate to the hospital with real-time directions.
 
-The Patient Queue Management System is a web-based healthcare workflow automation tool that streamlines patient appointments through intelligent token generation, real-time queue management, and location-aware scheduling. The system integrates map visualization and navigation features to provide patients with optimal departure times and turn-by-turn directions to the hospital.
+## ⚠️ Disclaimer
 
-The system serves three primary user groups:
-- **Patients**: Book appointments, receive tokens, view wait times, and navigate to the hospital
-- **Doctors**: View and manage their patient queues
-- **Hospital Administrators**: Configure schedules, monitor system-wide queue status
+This system uses **synthetic data only** for demonstration purposes. It does NOT provide medical advice. Scheduling times are estimates and subject to traffic and other external factors.
 
-**Key Design Principles:**
-- Real-time updates for queue status and travel times
-- Location-aware scheduling with traffic consideration
-- Clear separation between patient, doctor, and admin interfaces
-- Synthetic data only with prominent disclaimers
-- Mobile-first responsive design for patient interface
+## Features
 
-## Architecture
+- **Online Token Generation** - Book appointments without visiting the hospital
+- **Smart Departure Times** - Know exactly when to leave based on your location and traffic
+- **Google Maps Integration** - Turn-by-turn navigation with real-time traffic updates
+- **Real-Time Queue Updates** - See your wait time and position in the queue
+- **Multi-Channel Notifications** - Get updates via email, SMS, or in-app
+- **Multiple Transport Modes** - Driving, public transit, or walking directions
 
-The system follows a three-tier architecture with clear separation of concerns.
+## Quick Start
 
-**Architecture Decisions:**
-1. **RESTful API**: Stateless API design for scalability
-2. **Event-driven updates**: WebSocket connections for real-time queue and travel time updates
-3. **Third-party map integration**: Use established mapping services (Google Maps, Mapbox) rather than building from scratch
-4. **Token-based authentication**: JWT tokens for secure, stateless authentication
-5. **In-memory caching**: Redis for frequently accessed data (active queues, wait times)
+```bash
+# Install dependencies
+npm install
 
-## Components and Interfaces
+# Set up environment
+cp .env.example .env
+# Edit .env with your API keys
 
-The design document includes detailed interfaces for:
-- Token Generator
-- Queue Manager
-- Travel Time Estimator
-- Departure Calculator
-- Map Interface
-- Notification Service
-- Authentication Service
+# Run migrations
+npm run migrate
 
-## Data Models
+# Start the server
+npm run dev
+```
 
-Core data models include:
-- Patient
-- Doctor
-- Appointment
-- GeoLocation
-- Hospital
+## Requirements
 
-## Correctness Properties
+- Node.js 18+
+- PostgreSQL 14+ with PostGIS
+- Redis 7+
+- Google Maps API key
 
-The system has 50 correctness properties covering all testable requirements. Key properties include:
+## Tech Stack
 
-- Token uniqueness and generation
-- Queue ordering and progression
-- Travel time estimation and departure calculation
-- Map rendering and navigation
-- Authentication and authorization
-- Data persistence and retrieval
+- **Frontend**: React, TypeScript, Google Maps API
+- **Backend**: Node.js, Express
+- **Database**: PostgreSQL with PostGIS
+- **Cache**: Redis
+- **Real-time**: WebSocket
+- **Auth**: JWT
 
-## Testing Strategy
+## Documentation
 
-- **Unit tests**: Specific examples, edge cases, error conditions
-- **Property tests**: Universal properties across all inputs using fast-check library
-- Minimum 100 iterations per property test
-- Both approaches are complementary and necessary
+- [Requirements](requirements.md) - System requirements
+- [Design](~/.kiro/specs/patient-queue-management/design.md) - Technical design
 
-For full design details, see: ~/.kiro/specs/patient-queue-management/design.md
+## Testing
+
+```bash
+# Run unit tests
+npm test
+
+# Run property-based tests
+npm run test:properties
+```
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first.
+
+---
+
+**Note**: This is a demonstration project. Always consult healthcare professionals for medical advice.
